@@ -24,6 +24,10 @@ public class DriverMapper {
             driverDTOBuilder.setCoordinate(coordinate);
         }
 
+        if (driverDO.getCar() != null) {
+            driverDTOBuilder.setAssignedCar(driverDO.getCar().getId());
+        }
+
         return driverDTOBuilder.createDriverDTO();
     }
 

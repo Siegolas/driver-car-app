@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * All operations with a driver will be routed by this controller.
@@ -65,5 +67,29 @@ public class DriverController {
     @GetMapping
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus) {
         return DriverMapper.makeDriverDTOList(driverService.find(onlineStatus));
+    }
+
+    @PatchMapping("/{driverId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable long driverId, @RequestBody Map<String, Object> updates) throws EntityNotFoundException, ConstraintsViolationException {
+        driverService.update(updates, driverId);
+    }
+
+    @PostMapping("/{driverId}/car/{carId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void assignCarToDriver(@PathVariable long driverId, @PathVariable long carId) throws EntityNotFoundException, ConstraintsViolationException {
+        driverService.assignCarToDriver(driverId, carId);
+    }
+
+    @DeleteMapping("/{driverId}/car")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unassignCarFromDriver(@PathVariable long driverId) throws EntityNotFoundException, ConstraintsViolationException {
+        driverService.unassignCarFromDriver(driverId);
+    }
+
+    @PostMapping("/searches")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DriverDTO> findDriversByFilter(@RequestBody Map<String, Object> searchMap) throws ConstraintsViolationException {
+        return DriverMapper.makeDriverDTOList(driverService.findByFilter(searchMap));
     }
 }

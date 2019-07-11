@@ -2,6 +2,25 @@
  * CREATE Script for init of DB
  */
 
+-- Create manufacturers
+
+insert into manufacturer (id, date_created, name) values
+(1, now(), 'ALFA ROMEO');
+
+insert into manufacturer (id, date_created, name) values
+(2, now(), 'TOYOTA');
+
+
+-- Create cars
+
+insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, deleted,
+manufacturer_id) values
+(1, now(), 'B9863US', 5, false, 70, 'GASOLINE', false, 1);
+
+insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, deleted, manufacturer_id) values
+(2, now(), '6392KPT', 2, true, 60, 'HYBRID', false, 2);
+
+
 -- Create 3 OFFLINE drivers
 
 insert into driver (id, date_created, deleted, online_status, password, username) values (1, now(), false, 'OFFLINE',
@@ -16,11 +35,12 @@ insert into driver (id, date_created, deleted, online_status, password, username
 
 -- Create 3 ONLINE drivers
 
-insert into driver (id, date_created, deleted, online_status, password, username) values (4, now(), false, 'ONLINE',
-'driver04pw', 'driver04');
+insert into driver (id, date_created, deleted, online_status, password, username, car_id) values (4, now(), false,
+'ONLINE',
+'driver04pw', 'driver04', 1);
 
-insert into driver (id, date_created, deleted, online_status, password, username) values (5, now(), false, 'ONLINE',
-'driver05pw', 'driver05');
+insert into driver (id, date_created, deleted, online_status, password, username, car_id) values (5, now(), false, 'ONLINE',
+'driver05pw', 'driver05', 2);
 
 insert into driver (id, date_created, deleted, online_status, password, username) values (6, now(), false, 'ONLINE',
 'driver06pw', 'driver06');

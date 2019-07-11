@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -24,7 +27,7 @@ import java.time.ZonedDateTime;
 public class DriverDO {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -52,6 +55,10 @@ public class DriverDO {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OnlineStatus onlineStatus;
+
+    @OneToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    private CarDO car;
 
     private DriverDO() {
     }
@@ -106,4 +113,12 @@ public class DriverDO {
         this.dateCoordinateUpdated = ZonedDateTime.now();
     }
 
+    public CarDO getCar() {
+        return car;
+    }
+
+    public void setCar(CarDO car) {
+        this.car = car;
+    }
 }
+

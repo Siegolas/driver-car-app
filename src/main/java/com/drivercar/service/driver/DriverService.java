@@ -6,6 +6,7 @@ import com.drivercar.exception.ConstraintsViolationException;
 import com.drivercar.exception.EntityNotFoundException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DriverService {
 
@@ -18,5 +19,13 @@ public interface DriverService {
     void updateLocation(long driverId, double longitude, double latitude) throws EntityNotFoundException;
 
     List<DriverDO> find(OnlineStatus onlineStatus);
+
+    void update(Map<String, Object> updates, Long id) throws ConstraintsViolationException, EntityNotFoundException;
+
+    void assignCarToDriver(Long driverId, Long carId) throws EntityNotFoundException;
+
+    void unassignCarFromDriver(Long driverId) throws EntityNotFoundException;
+
+    List<DriverDO> findByFilter(Map<String, Object> searchMap);
 
 }

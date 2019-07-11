@@ -1,4 +1,4 @@
-# Backend applicant test
+# Driver car application
 
 ## Task Description
 You should be able to start the example application by executing com.drivercar.DriverCarServerApplicantTestApplication, which starts a webserver on port 8080 (http://localhost:8080) and serves SwaggerUI where can inspect and try existing endpoints.
